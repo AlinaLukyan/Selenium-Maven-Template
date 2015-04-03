@@ -44,3 +44,19 @@ You can even specify multiple threads (you can do it on a grid as well!):
 - -Dthreads=2
 
 If the tests fail screenshots will be saved in ${project.basedir}/target/screenshots
+
+
+Comments from http://stackoverflow.com/questions/16005672/running-multiple-selenium-tests-at-the-same-time:
+
+You can run multiple instances of chromedriver locally quite easily, just instantiate multiple driver objects, chromedriver will keep the profiles separate and find a port to run on all by itself.
+
+Here a link to an example that can run multiple tests using TestNG and Maven:
+
+https://github.com/Ardesco/Selenium-Maven-Template
+
+Just clone the above project and run the following in the command line:
+
+mvn verify -Pselenium-tests -Dbrowser=chrome -Dthreads=2
+It takes advantage of TestNG's ability to manage the thread pool and will open up multiple instances if specified. You can do the same thing with jUnit but you'll need to write a custom test runner to fire the tests off into individual threads.
+
+If you decide to use gradle it can deal with managing the thread pools for you with both TestNG and jUnit and a lot of people prefer it to maven.
